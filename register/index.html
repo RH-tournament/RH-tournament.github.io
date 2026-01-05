@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tournament Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; padding: 15px; }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0;
+    }
+    .box {
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎮 Tournament Registration</h2>
+
+  <div class="box">
+    <label>Select Tournament</label>
+    <select id="tournamentSelect">
+      <option value="">Loading...</option>
+    </select>
+
+    <label>Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <label>Your UID</label>
+    <input type="text" id="uid" placeholder="Enter your UID" />
+
+    <button onclick="register()">Apply</button>
+  </div>
+
+  <div class="box">
+    <h3>📊 Participant Count</h3>
+    <div id="count">Select a tournament</div>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+  </html>
