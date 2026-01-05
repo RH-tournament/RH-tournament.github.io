@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register Tournament</title>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -13,8 +13,8 @@
 <style>
 body{
   margin:0;
-  font-family:'Orbitron';
-  background:#111;
+  font-family:'Orbitron',sans-serif;
+  background:linear-gradient(135deg,#141e30,#243b55);
   color:#fff;
 }
 header{
@@ -23,23 +23,43 @@ header{
   padding:10px;
   background:#000;
 }
-header img.logo{width:35px;margin-right:10px;}
-header img.banner{height:35px;border-radius:6px;}
+header img.logo{width:32px;margin-right:8px;}
+header img.banner{height:32px;border-radius:6px;}
 
-.container{padding:12px;}
+.container{padding:15px;}
 .card{
-  background:#222;
+  background:rgba(0,0,0,0.7);
   padding:15px;
-  border-radius:10px;
+  border-radius:12px;
 }
-input,select,button{
+select,input{
   width:100%;
-  padding:10px;
-  margin-top:10px;
+  padding:8px;
+  margin-top:8px;
   border-radius:6px;
   border:none;
+  font-size:14px;
 }
-button{background:#27ae60;color:white;}
+button{
+  width:100%;
+  padding:10px;
+  margin-top:12px;
+  background:#27ae60;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-size:15px;
+}
+#success{
+  margin-top:10px;
+  color:#2ecc71;
+  display:none;
+}
+#count{
+  margin-top:8px;
+  font-size:14px;
+  color:#f1c40f;
+}
 </style>
 </head>
 
@@ -51,16 +71,22 @@ button{background:#27ae60;color:white;}
 </header>
 
 <div class="container">
-<div class="card">
-  <h3>Register</h3>
+  <div class="card">
+    <h3>Register</h3>
 
-  <select id="tournament"></select>
-  <input type="text" id="name" placeholder="Player Name">
-  <input type="number" id="uid" placeholder="UID (numbers only)">
-  <button onclick="register()">Submit</button>
-</div>
+    <select id="tournament"></select>
+
+    <input type="text" id="name" placeholder="Player Name">
+
+    <input type="number" id="uid" placeholder="UID (numbers only)">
+
+    <button onclick="register()">Submit</button>
+
+    <div id="success">✅ Registration Successful!</div>
+    <div id="count">Total Participants: 0</div>
+  </div>
 </div>
 
 <script src="register.js"></script>
 </body>
-    </html>
+</html>
