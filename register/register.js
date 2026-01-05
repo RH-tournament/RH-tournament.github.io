@@ -4,38 +4,84 @@ const firebaseConfig = {
   projectId: "rh-tournament-system"
 };
 
-firebase.initializeApp(firebaseConfig);
+// 🔐 prevent double init
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
 const db = firebase.firestore();
 
+const tournamentSelect = document.getElementById("tournament");
+const countDiv = document.getElementById("count");
+const successDiv = document.getElementById("success");
+
+// Load tournaments
 db.collection("tournaments").onSnapshot(snap=>{
-  tournament.innerHTML="";
+  tournamentSelect.innerHTML="";
   snap.forEach(doc=>{
-    tournament.innerHTML+=`<option value="${doc.id}">${doc.data().name}</option>`;
+    tournamentSelect.innerHTML +=
+      `<option value="${doc.id}">${doc.data().name}</option>`;
   });
+  updateCount();
 });
 
-function register(){
-  const tId = tournament.value;
-  const nameVal = name.value.trim();
-  const uidVal = uid.value.trim();
-
-  if(!/^\d+$/.test(uidVal)) return alert("UID must be numbers");
+// Count participants
+function updateCount(){
+  const tId = tournamentSelect.value;
+  if(!tId) return;
 
   db.collection("participants")
-  .where("tournamentId","==",tId)
-  .where("uid","==",uidVal)
-  .get().then(res=>{
-    if(!res.empty) return alert("UID already registered");
-
-    db.collection("participants").add({
-      tournamentId:tId,
-      name:nameVal,
-      uid:uidVal,
-      time:Date.now()
-    }).then(()=>{
-      alert("Registration Successful");
-      name.value="";
-      uid.value="";
+    .where("tournamentId","==",tId)
+    .onSnapshot(snap=>{
+      countDiv.innerText = `Total Participants: ${snap.size}`;
     });
-  });
 }
+
+tournamentSelect.addEventListener("change", updateCount);
+
+// Register function
+function register(){
+  const tId = tournamentSelect.value;
+  const name = document.getElementById("name").value.trim();
+  const uid = document.getElementById("uid").value.trim();
+
+  successDiv.style.display="none";
+
+  if(!tId || !name || !uid){
+    alert("Fill all fields");
+    return;
+  }
+
+  if(!/^\d+$/.test(uid)){
+    alert("UID must be numbers only");
+    return;
+  }
+
+  // 🔒 duplicate UID block
+  db.collection("participants")
+    .where("tournamentId","==",tId)
+    .where("uid","==",uid)
+    .get()
+    .then(res=>{
+      if(!res.empty){
+        alert("This UID already registered");
+        return;
+      }
+
+      // ✅ REAL SAVE
+      return db.collection("participants").add({
+        tournamentId: tId,
+        name: name,
+        uid: uid,
+        created: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    })
+    .then(()=>{
+      document.getElementById("name").value="";
+      document.getElementById("uid").value="";
+      successDiv.style.display="block";
+    })
+    .catch(err=>{
+      alert("Error: " + err.message);
+    });
+                   }
