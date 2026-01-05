@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register</title>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Orbitron';
+  background:#111;
+  color:#fff;
+}
+header{
+  display:flex;
+  align-items:center;
+  padding:10px;
+  background:#000;
+}
+header img.logo{width:35px;margin-right:10px;}
+header img.banner{height:35px;border-radius:6px;}
+
+.container{padding:12px;}
+.card{
+  background:#222;
+  padding:15px;
+  border-radius:10px;
+}
+input,select,button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:6px;
+  border:none;
+}
+button{background:#27ae60;color:white;}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" class="logo">
+  <img src="tournament.jpg" class="banner">
+</header>
+
+<div class="container">
+<div class="card">
+  <h3>Register</h3>
+
+  <select id="tournament"></select>
+  <input type="text" id="name" placeholder="Player Name">
+  <input type="number" id="uid" placeholder="UID (numbers only)">
+  <button onclick="register()">Submit</button>
+</div>
+</div>
+
+<script src="register.js"></script>
+</body>
+    </html>
