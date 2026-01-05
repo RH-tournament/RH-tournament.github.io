@@ -50,7 +50,10 @@
       padding-left: 20px;
       min-width: 250px;
     }
-    .info h2 { margin-bottom: 10px; }
+    .info h2 { margin-bottom: 20px;
+             color: red;
+             font-size: 40;
+             }
     .contact-icons {
       font-weight: bold;
       font-size: 20px;
@@ -240,7 +243,7 @@
       if (i < text.length) {
         document.getElementById("typing-text").innerHTML += text.charAt(i);
         i++;
-        setTimeout(typeWriter, 30);
+        setTimeout(typeWriter, 40);
       }
     }
     window.onload = typeWriter;
